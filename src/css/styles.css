@@ -1,0 +1,67 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ESTILOS GENERALES */
+body {
+  @apply bg-gray-light text-gray-dark;
+}
+/* ------------------------------------------------------------ */
+
+/* FONTS */
+@layer base {
+  @font-face {
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url(../../assets/fonts/Inter.ttf) format("woff2");
+  }
+}
+/* ------------------------------------------------------------ */
+
+@layer components {
+
+  /* ESTILO PARA BOTONES E INPUTS */
+  .primary-button {
+    @apply bg-yellow-primary text-gray-dark p-4 rounded-lg font-semibold;
+  }
+  .input-text {
+    @apply bg-white p-4 rounded-lg;
+  }
+  /* ------------------------------------------------------------ */
+
+  /* CLASE QUE CONTROLA EN QUE PARTE DEL MENU ESTA FUNCIONA CON REACT ROUTER */
+  .active {
+    @apply bg-yellow-secondary;
+  }
+  /* ------------------------------------------------------------ */
+
+  /* ESTILOS PARA TITULO Y SUBTITULOS */
+  .title {
+    @apply text-3xl font-semibold;
+  }
+
+  .subtitle {
+    @apply text-lg;
+  }
+  /* ------------------------------------------------------------ */
+
+  /* BUTTONS STATES */
+  .btn-accepted {
+    @apply bg-green-light rounded-md px-4 py-2 text-sm;
+  }
+
+  .btn-refused {
+    @apply bg-yellow-secondary px-4 py-2 rounded-md text-sm;
+  }
+
+  .btn-pending {
+    @apply bg-yellow-primary px-4 py-2 rounded-md text-sm;
+  }
+
+  .btn-canceled {
+    @apply bg-red-light px-4 py-2 rounded-md text-sm;
+  }
+  /* ------------------------------------------------------------ */
+}
