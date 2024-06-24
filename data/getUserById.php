@@ -8,6 +8,12 @@ $mydb = $connection->connectionDb();
 
 try {
 
+    if ($mydb->connect_error) {
+
+        throw new Exception("Conexión fallida: " . $mydb->connect_error);
+
+    }
+
     if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
         $data = json_decode(file_get_contents('php://input'), true);
@@ -46,6 +52,7 @@ try {
         throw new Exception('400');
 
     }
+
 } catch (Exception $error) {
 
     echo json_encode(['message' => $error->getMessage()]);
@@ -55,10 +62,12 @@ try {
     if (isset($query) && $query instanceof mysqli_stmt) {
 
         $query->close();
+
     }
     if (isset($mydb) && $mydb instanceof mysqli) {
 
         $mydb->close();
+        
     }
 }
 
