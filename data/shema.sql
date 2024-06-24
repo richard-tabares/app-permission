@@ -2,7 +2,7 @@ create database permissions;
 
 USE permissions;
 
-create table user(
+create table users(
     idUser bigint primary key,
     name varchar(255) not null,
     email varchar(255) not null,
@@ -15,19 +15,19 @@ create table user(
 
 create table permissions(
     idPermission bigint primary key auto_increment,
-    idUser bigint,
-    foreign key (idUser) references user(idUser) on delete cascade,
-    date date,
+    idUser bigint not null,
+    foreign key (idUser) references users(idUser) on delete cascade,
+    date date not null,
     description text not null,
-    state varchar(255)
+    state varchar(255) not null
 );
 
 create table certificates(
     idCertificate bigint primary key auto_increment,
-    idUser bigint,
-    foreign key (idUser) references user(idUser) on delete cascade,
-    date date,
-    state varchar(255)
+    idUser bigint not null,
+    foreign key (idUser) references users(idUser) on delete cascade,
+    date date not null,
+    state varchar(255) not null
 );
 
 create table company(
@@ -40,7 +40,7 @@ create table company(
 );
 
 -- Informacion de usuario
-insert into user(idUser,name,email,position,role,wappNumber,sign,initDate)
+insert into users(idUser,name,email,position,role,wappNumber,sign,initDate)
 values
 (1017155071,'Richard Tabares B','richardtabaresb@gmail.com','Coordinador de Sistemas','admin','3122200815','none','2020-12-29'),
 (43273772,'Alejandra Lopez','alejalopez825@gmail.com','Coordinador Logística','jefe','3206479238','none','2023-10-01'),

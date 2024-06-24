@@ -8,10 +8,10 @@ class connection
     var $password = "root";
 
 
-    function connectionDb()
+    public function connectionDb()
     {
 
-        $myDb = new mysqli($this->host, $this->dbName, $this->userName, $this->password);
+        $myDb = new mysqli($this->host, $this->userName, $this->password, $this->dbName);
         // $mybd->query("SET NAMES 'utf8'");
 
         if (mysqli_connect_error()) {
@@ -19,7 +19,7 @@ class connection
             printf("ERROR ES %s\n", mysqli_connect_error());
 
         }
-
+        
         return $myDb;
     }
 }
