@@ -24,10 +24,13 @@ body {
 
   /* ESTILO PARA BOTONES E INPUTS */
   .primary-button {
-    @apply bg-yellow-primary text-gray-dark p-4 rounded-lg font-semibold;
+    @apply bg-yellow-primary text-gray-dark p-4 rounded-lg font-semibold cursor-pointer hover:bg-yellow-secondary;
+  }
+  .secondary-button{
+    @apply bg-gray-dark text-white p-4 rounded-lg font-medium cursor-pointer hover:bg-gray-700;
   }
   .input-text {
-    @apply bg-white p-4 rounded-lg;
+    @apply bg-white p-4 rounded-lg text-gray-dark;
   }
   /* ------------------------------------------------------------ */
 
@@ -64,4 +67,8 @@ body {
     @apply bg-red-light px-4 py-2 rounded-md text-sm;
   }
   /* ------------------------------------------------------------ */
+
+  .message{
+    @apply bg-gray-300 grid place-items-center text-center p-10 rounded-lg
+  }
 }

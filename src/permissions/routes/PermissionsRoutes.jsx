@@ -16,9 +16,9 @@ export const PermissionsRoutes = () => {
       <Routes>
 
         <Route path='permisos' element={<PermissionsPage />} />
-        <Route path='permisos/info' element={<InfoPermissionPage />} />
+        <Route path='permisos/info/:idPermission' element={<InfoPermissionPage />} />
         <Route path='certificados' element={<CertificatesPage />} />
-        <Route path='certificados/info' element={<InfoCertificatesPage />} />
+        <Route path='certificados/info/:idCertificate' element={<InfoCertificatesPage />} />
 
         <Route path='/*' element={<Navigate to='/permisos' />} />
 

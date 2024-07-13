@@ -16,43 +16,38 @@ try {
 
     if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
-        // $data = json_decode(file_get_contents('php://input'), true);
-        // $idPermission = $data['idPermission'];
-        $idCertificate = $_GET['idCertificate'];
+        // $json = file_get_contents('php://input');
+        // $data = json_decode($json, true);
 
-        $query = $mydb->prepare("SELECT * FROM certificates INNER JOIN users on certificates.idUser = users.idUser WHERE idCertificate = ?");
+        $idCertificate = $_GET['idCertificate'];
+        $buttonState = $_GET['buttonState'];
+
+        $query = $mydb->prepare("UPDATE certificates SET state = ? WHERE idCertificate = ?");
 
         if (!$query) {
 
             throw new Exception('400');
         }
 
-        $query->bind_param('i', $idCertificate);
+        $query->bind_param('si', $buttonState, $idCertificate );
 
         if (!$query->execute()) {
 
             throw new Exception('400');
-
         }
 
-        $result = $query->get_result();
+        if ($query->affected_rows > 0) {
 
-        if ($result->num_rows > 0) {
-
-            $certificates = $result->fetch_all(MYSQLI_ASSOC);
-            echo json_encode($certificates);
+            echo json_encode(['message' => '200']);
 
         } else {
 
-            throw new Exception('204');
+            echo json_encode(['message' => '204']);
 
         }
 
-    } else {
-
-        throw new Exception('400');
-
     }
+
 } catch (Exception $error) {
 
     echo json_encode(['message' => $error->getMessage()]);

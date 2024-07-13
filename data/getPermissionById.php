@@ -16,10 +16,11 @@ try {
 
     if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
-        $data = json_decode(file_get_contents('php://input'), true);
-        $idPermission = $data['idPermission'];
+        // $data = json_decode(file_get_contents('php://input'), true);
+        // $idPermission = $data['idPermission'];
+        $idPermission = $_GET['idPermission'];
 
-        $query = $mydb->prepare("SELECT * FROM permissions WHERE idPermission = ?");
+        $query = $mydb->prepare("SELECT * FROM permissions INNER JOIN users on permissions.idUser = users.idUser WHERE idPermission = ?");
 
         if(!$query){
 
@@ -38,8 +39,8 @@ try {
 
         if($result->num_rows > 0){
 
-            $users = $result->fetch_all(MYSQLI_ASSOC);
-            echo json_encode($users);
+            $permissions = $result->fetch_all(MYSQLI_ASSOC);
+            echo json_encode($permissions);
 
         }else{
 

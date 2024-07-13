@@ -1,25 +1,65 @@
+import { useEffect, useState } from "react"
 import { Buttons } from "./Buttons"
-import { MessageInfo } from "./MessageInfo"
+import { Message } from "./Message"
 
 
-//este componente debe llamar un get permisions para obtener el permiso segun el id del home
-export const InfoCertificates = () => {
+export const InfoCertificates = ({certificate = []}) => {
+
+    const [data] = certificate
+    const [stateButton, setStateButton] = useState(data?.state)
+    const [message, setMessage] = useState()
+    const [messageState, setMessageState] = useState(false)
+
+    useEffect(() => {
+
+        switch (data?.state) {
+
+            case 'Aceptado':
+
+                setStateButton('btn-accepted')
+                break;
+
+            case 'Pendiente':
+
+                setStateButton('btn-pending')
+                break;
+
+            case 'Rechazado':
+
+                setStateButton('btn-refused')
+                break;
+
+            case 'Cancelado':
+
+                setStateButton('btn-canceled')
+                break;
+
+        }
+
+
+    }, [data?.state])
+
     return (
 
         <>
+            {
+
+                messageState && <Message message={message} setMessageState={setMessageState} />
+
+            }
             <section className="grid gap-5">
 
                 <div>
 
                     <h3 className="font-semibold">Fecha</h3>
-                    <p>06/06/2024</p>
+                    <p>{data?.date}</p>
 
                 </div>
 
                 <div>
 
                     <h3 className="font-semibold">Nombre</h3>
-                    <p>Jeisson Richard Tabares Botero</p>
+                    <p>{data?.name}</p>
 
                 </div>
 
@@ -27,29 +67,28 @@ export const InfoCertificates = () => {
                 <div>
 
                     <h3 className="font-semibold">Cargo</h3>
-                    <p>Coordinador de Sistemas</p>
+                    <p>{data?.position}</p>
 
                 </div>
 
                 <div>
 
                     <h3 className="font-semibold">Correo</h3>
-                    <p>richardtabaresb@gmail.com</p>
+                    <p>{data?.email}</p>
 
                 </div>
 
                 <div>
 
                     <h3 className="font-semibold inline-block mr-4">Estado:</h3>
-                    <span className="btn-pending">Pendiente</span>
+                    <span className={stateButton}>{data?.state}</span>
 
                 </div>
 
             </section>
 
-            <Buttons />
+            <Buttons stateButton={stateButton} id={data?.idCertificate || data?.idPermission} setMessage={setMessage} setMessageState={setMessageState} />
 
-            <MessageInfo message={'Mensajes informativos'}/>
 
         </>
 

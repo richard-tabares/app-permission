@@ -1,13 +1,13 @@
 <?php
 
-require_once('./connection.php');
-include('./CORS.php');
+require_once ('./connection.php');
+include ('./CORS.php');
 
 $connection = new connection();
 $mydb = $connection->connectionDb();
 
 try {
-    
+
     if ($mydb->connect_error) {
 
         throw new Exception("Conexión fallida: " . $mydb->connect_error);
@@ -16,42 +16,38 @@ try {
 
     if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
-        $data = json_decode(file_get_contents('php://input'), true);
-        $idUSer = $data['idUser'];
+        // $json = file_get_contents('php://input');
+        // $data = json_decode($json, true);
 
-        $query = $mydb->prepare("SELECT * FROM certificates WHERE idUser = ?");
+        $idPermission = $_GET['idPermission'];
+        $buttonState = $_GET['buttonState'];
 
-        if(!$query){
+        $query = $mydb->prepare("UPDATE permissions SET state = ? WHERE idPermission = ?");
+
+        if (!$query) {
+
+            throw new Exception('400');
+        }
+
+        $query->bind_param('si', $buttonState, $idPermission );
+
+        if (!$query->execute()) {
 
             throw new Exception('400');
         }
 
-        $query->bind_param('i', $idUSer);
+        if ($query->affected_rows > 0) {
 
-        if(!$query->execute()){
+            echo json_encode(['message' => '200']);
 
-            throw new Exception('400');
+        } else {
+
+            echo json_encode(['message' => '204']);
 
         }
-
-        $result = $query->get_result();
-
-        if($result->num_rows > 0){
-
-            $users = $result->fetch_all(MYSQLI_ASSOC);
-            echo json_encode($users);
-
-        }else{
-
-            throw new Exception('204');
-            
-        }
-
-    } else {
-
-        throw new Exception('400');
 
     }
+
 } catch (Exception $error) {
 
     echo json_encode(['message' => $error->getMessage()]);

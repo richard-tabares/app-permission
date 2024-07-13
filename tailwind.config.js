@@ -16,7 +16,7 @@ export default {
         'yellow-primary': '#F3CA52',
         'yellow-secondary': '#F6E9B2',
         'gray-light': '#F3F4F6',
-        'gray-dark': '#444444',
+        'gray-dark': '#1F2937',
         'green-light': '#7ABA78',
         'red-light': '#F5BDBD',
       },

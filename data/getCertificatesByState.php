@@ -17,17 +17,21 @@ try {
     if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
         // $data = json_decode(file_get_contents('php://input'), true);
-        // $idPermission = $data['idPermission'];
-        $idCertificate = $_GET['idCertificate'];
+        // $user = $data['idUser'];
+        $selectState = $_GET['selectState'];
+        if ($selectState != '') {
+            $query = $mydb->prepare("SELECT * FROM certificates INNER JOIN users on certificates.idUser = users.idUser WHERE certificates.state = ?");
+            $query->bind_param('s', $selectState);
+        } else {
+            $query = $mydb->prepare("SELECT * FROM certificates INNER JOIN users on certificates.idUser = users.idUser");
+        }
 
-        $query = $mydb->prepare("SELECT * FROM certificates INNER JOIN users on certificates.idUser = users.idUser WHERE idCertificate = ?");
+        // -- $query = $mydb->prepare("SELECT * FROM certificates INNER JOIN users on certificates.idUser = users.idUser WHERE certificates.state = ?");
 
         if (!$query) {
 
             throw new Exception('400');
         }
-
-        $query->bind_param('i', $idCertificate);
 
         if (!$query->execute()) {
 
@@ -53,6 +57,7 @@ try {
         throw new Exception('400');
 
     }
+
 } catch (Exception $error) {
 
     echo json_encode(['message' => $error->getMessage()]);

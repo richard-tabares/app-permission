@@ -1,8 +1,30 @@
+import { useContext, useEffect, useState } from "react"
 import { PermissionCard } from "../components/PermissionCard"
-import { SelectFilter } from "../components/SelectFilter"
-//importar el helper que nos muestra todas los permisos del jefe pasandole el parametro de idUser
+import { SelectState } from "../components/SelectState"
+import { AuthContext } from "../../login/context/AuthContext"
+import { getPermissionsByState } from "../../login/helpers/getPermissionsByState"
+import { useLocation } from 'react-router-dom'
 
 export const PermissionsPage = () => {
+
+
+  const path = useLocation()
+  const [location] = path.pathname.split('/').filter(part => part)
+
+  const { selectState } = useContext(AuthContext)
+  const [permissionData, setPermissionData] = useState([])
+
+  useEffect(() => {
+
+    const fetchPermissions = async () => {
+      setPermissionData(await getPermissionsByState(selectState))
+
+    }
+
+    fetchPermissions()
+
+  }, [selectState])
+
   return (
 
       <section className="p-8 grid gap-6">
@@ -14,17 +36,15 @@ export const PermissionsPage = () => {
 
         </header>
 
-        {/* a este componente le pasamos las consulta de los usuarios a cargo */}
-        <SelectFilter />
-        
-      {/* a este componente le enviamos el objeto de la consulta de permisos */}
-        <PermissionCard />
-        <PermissionCard />
-        <PermissionCard />
-        <PermissionCard />
-        <PermissionCard />
-        <PermissionCard />
-        <PermissionCard />
+        <SelectState />
+
+        {
+
+          (permissionData.message != '204' && permissionData.message != '400')
+          ? <PermissionCard data={permissionData} location={location} />
+            : <div className="text-center">No hay resultados</div>
+
+        }
 
       </section>
 

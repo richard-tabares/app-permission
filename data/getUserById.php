@@ -16,17 +16,19 @@ try {
 
     if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
-        $data = json_decode(file_get_contents('php://input'), true);
-        $idUSer = $data['idUser'];
+        // $data = json_decode(file_get_contents('php://input'), true);
+        // $idUSer = $data['idUser'];
+        $user = $_GET['user'];
+        $password = $_GET['password'];
 
-        $query = $mydb->prepare("SELECT * FROM users WHERE idUser = ?");
+        $query = $mydb->prepare("SELECT * FROM users WHERE idUser = ? and password = ?");
 
         if(!$query){
 
             throw new Exception('400');
         }
 
-        $query->bind_param('i', $idUSer);
+        $query->bind_param('is', $user, $password);
 
         if(!$query->execute()){
 
@@ -38,8 +40,8 @@ try {
 
         if($result->num_rows > 0){
 
-            $users = $result->fetch_all(MYSQLI_ASSOC);
-            echo json_encode($users);
+            $permissions = $result->fetch_all(MYSQLI_ASSOC);
+            echo json_encode($permissions);
 
         }else{
 

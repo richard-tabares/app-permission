@@ -1,24 +1,47 @@
 import { Link } from "react-router-dom"
-import { FaCircleExclamation } from "react-icons/fa6";
+import { useEffect, useState } from "react";
+import { useUpdatePermissions } from "../hooks/useUpdatePermissions";
 
-// este debe recibir la data del permisos para poder renderizarlos todos
-export const PermissionCard = ({ permissions }) => {
+export const PermissionCard = ({ data = [], location }) => {
+
+    const [newData, setNewData] = useState([])
+
+    useEffect(() => {
+
+        setNewData(useUpdatePermissions(data))
+
+    }, [data])
+
     return (
+        <>
+            {
+                newData.map(item => (
 
-        <Link className="bg-white p-6 rounded-xl" to='/certificados/info'>
+                    <Link
+                        className="bg-white p-6 rounded-xl"
+                        to={`/${location}/info/${item.idPermission || item.idCertificate}`}
+                        key={item.idPermission || item.idCertificate}>
 
-            <div className="grid gap-2">
+                        <div className="grid gap-2">
 
-                <header className="font-bold">Richard Tabares</header>
-                <p>1017155071</p>
-                <p>richardtabaresb@gmail.com</p>
-                <p>06/06/2024</p>
+                            <header className="font-bold">Nombre: {item.name}</header>
+                            <p>{item.idUser}</p>
+                            <p>{item.email}</p>
+                            <p>{item.date}</p>
 
-            </div>
+                        </div>
 
-            <button className="btn-pending mt-4"><FaCircleExclamation className="inline-block mr-2"/> Pendiente</button>
+                        <button className={`${item.btnState.class} mt-4`}>
 
-        </Link>
+                            {item.btnState.icon} {item.state}
 
+                        </button>
+
+                    </Link>
+
+                ))
+            }
+
+        </>
     )
 }

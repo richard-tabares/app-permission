@@ -16,17 +16,22 @@ try {
 
     if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
-        $data = json_decode(file_get_contents('php://input'), true);
-        $idUSer = $data['idUser'];
+        // $data = json_decode(file_get_contents('php://input'), true);
+        // $user = $data['idUser'];
+        $selectState = $_GET['selectState'];
+        if($selectState != ''){
+            $query = $mydb->prepare("SELECT * FROM permissions INNER JOIN users on permissions.idUser = users.idUser WHERE permissions.state = ?");
+            $query->bind_param('s', $selectState);
+        }else{
+            $query = $mydb->prepare("SELECT * FROM permissions INNER JOIN users on permissions.idUser = users.idUser");
+        }
 
-        $query = $mydb->prepare("SELECT * FROM permissions WHERE idUser = ?");
+        // -- $query = $mydb->prepare("SELECT * FROM permissions INNER JOIN users on permissions.idUser = users.idUser WHERE permissions.state = ?");
 
         if(!$query){
 
             throw new Exception('400');
         }
-
-        $query->bind_param('i', $idUSer);
 
         if(!$query->execute()){
 
@@ -38,8 +43,8 @@ try {
 
         if($result->num_rows > 0){
 
-            $users = $result->fetch_all(MYSQLI_ASSOC);
-            echo json_encode($users);
+            $permissions = $result->fetch_all(MYSQLI_ASSOC);
+            echo json_encode($permissions);
 
         }else{
 
