@@ -17,6 +17,7 @@ create table permissions(
     idPermission bigint primary key auto_increment,
     idUser bigint not null,
     foreign key (idUser) references users(idUser) on delete cascade,
+    idBoss bigint not null,
     date date not null,
     description text not null,
     state varchar(255) not null
