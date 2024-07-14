@@ -1,8 +1,8 @@
 
-export const getPermissionsByState = async (selectState = '') => {
+export const getPermissionsByState = async (selectState = '', idUser = '') => {
     
 
-    const api = `http://localhost/data/getPermissionsByState.php?selectState=${selectState}`
+    const api = `http://localhost/data/getPermissionsByState.php?selectState=${selectState}&idUser=${idUser}`
 
     const getData = await fetch(api, {
         method: 'GET',

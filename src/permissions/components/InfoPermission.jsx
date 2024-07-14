@@ -1,15 +1,15 @@
 import { FaPenToSquare } from "react-icons/fa6"
 import { Buttons } from "./Buttons"
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { Message } from "./Message"
+import { AuthContext } from "../../login/context/AuthContext"
 
 export const InfoPermission = ({ permission = [] }) => {
 
 
     const [data] = permission
     const [stateButton, setStateButton] = useState(data?.state)
-    const [message, setMessage] = useState()
-    const [messageState, setMessageState] = useState(false)
+    const { messageState } = useContext(AuthContext)
 
     useEffect(() => {
 
@@ -40,13 +40,12 @@ export const InfoPermission = ({ permission = [] }) => {
 
     }, [data?.state])
 
-
     return (
 
         <>
             {
 
-                messageState && <Message message={message} setMessageState={setMessageState} />
+                messageState && <Message />
 
             }
             <section className="grid gap-5">
@@ -99,7 +98,7 @@ export const InfoPermission = ({ permission = [] }) => {
 
             </section>
 
-            <Buttons stateButton={stateButton} id={data?.idCertificate || data?.idPermission} setMessage={setMessage} setMessageState={setMessageState} />
+            <Buttons stateButton={stateButton} id={data?.idCertificate || data?.idPermission} />
 
         </>
 

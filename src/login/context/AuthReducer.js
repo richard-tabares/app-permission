@@ -22,6 +22,27 @@ export const AuthReducer = (state = {}, action) => {
                 ...state,
                 selectState:action.payload
             }
+        
+        case types.message:
+            
+            return {
+                ...state,
+                message:action.payload
+            }
+        
+        case types.messageState:
+            
+            return {
+                ...state,
+                messageState:action.payload
+            }
+        
+        case types.location:
+            
+            return {
+                ...state,
+                location:action.payload
+            }
 
         default:
             return state

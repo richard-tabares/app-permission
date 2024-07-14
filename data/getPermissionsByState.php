@@ -19,11 +19,14 @@ try {
         // $data = json_decode(file_get_contents('php://input'), true);
         // $user = $data['idUser'];
         $selectState = $_GET['selectState'];
+        $idUser = $_GET['idUser'];
         if($selectState != ''){
-            $query = $mydb->prepare("SELECT * FROM permissions INNER JOIN users on permissions.idUser = users.idUser WHERE permissions.state = ?");
-            $query->bind_param('s', $selectState);
+            $query = $mydb->prepare("SELECT * FROM permissions INNER JOIN users on permissions.idUser = users.idUser WHERE permissions.state = ? and idBoss = ?"
+        );
+            $query->bind_param('si', $selectState, $idUser);
         }else{
-            $query = $mydb->prepare("SELECT * FROM permissions INNER JOIN users on permissions.idUser = users.idUser");
+            $query = $mydb->prepare("SELECT * FROM permissions INNER JOIN users on permissions.idUser = users.idUser WHERE idBoss = ?");
+            $query->bind_param('i', $idUser);
         }
 
         // -- $query = $mydb->prepare("SELECT * FROM permissions INNER JOIN users on permissions.idUser = users.idUser WHERE permissions.state = ?");

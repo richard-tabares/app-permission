@@ -32,6 +32,9 @@ body {
   .input-text {
     @apply bg-white p-4 rounded-lg text-gray-dark;
   }
+  .btn-peticiones{
+    @apply bg-yellow-secondary p-10 rounded-lg font-bold block hover:bg-yellow-primary transition-all duration-300
+  }
   /* ------------------------------------------------------------ */
 
   /* CLASE QUE CONTROLA EN QUE PARTE DEL MENU ESTA FUNCIONA CON REACT ROUTER */

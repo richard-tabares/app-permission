@@ -1,7 +1,7 @@
 <?php
 
-require_once ('./connection.php');
-include ('./CORS.php');
+require_once './connection.php';
+include './CORS.php';
 
 $connection = new connection();
 $mydb = $connection->connectionDb();
@@ -18,22 +18,13 @@ try {
 
         // $data = json_decode(file_get_contents('php://input'), true);
         // $idUSer = $data['idUser'];
-        $idUser = $_GET['idUser'];
+        // $idUser = $_GET['idUser'];
+        // $password = $_GET['password'];
 
-        if (isset($_GET['password'])) {
+        $role = 'jefe';
 
-            $password = $_GET['password'];
-            $query = $mydb->prepare("SELECT * FROM users WHERE idUser = ? and password = ?");
-            $query->bind_param('is', $idUser, $password);
-
-        } else {
-
-            $query = $mydb->prepare("SELECT * FROM users WHERE idUser = ?");
-            $query->bind_param('i', $idUser);
-
-        }
-
-
+        $query = $mydb->prepare("SELECT * FROM users WHERE role = ?");
+        $query->bind_param('s', $role);
 
         if (!$query) {
 

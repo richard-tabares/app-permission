@@ -7,11 +7,18 @@ import { useLocation } from 'react-router-dom'
 
 export const CertificatesPage = () => {
 
+
   const path = useLocation()
   const [location] = path.pathname.split('/').filter(part => part)
 
-  const { selectState } = useContext(AuthContext)
+  const { selectState, setLocation} = useContext(AuthContext)
   const [certificateData, setCertificateData] = useState([])
+
+  useEffect(() => {
+
+    setLocation(location)
+
+  }, [location])
 
   useEffect(() => {
 
@@ -40,7 +47,7 @@ export const CertificatesPage = () => {
       {
 
         (certificateData.message != '204' && certificateData.message != '400')
-          ? <PermissionCard data={certificateData} location={location} />
+          ? <PermissionCard data={certificateData} />
           : <div className="text-center">No hay resultados</div>
 
       }

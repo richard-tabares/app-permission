@@ -11,13 +11,22 @@ export const PermissionsPage = () => {
   const path = useLocation()
   const [location] = path.pathname.split('/').filter(part => part)
 
-  const { selectState } = useContext(AuthContext)
+  const { selectState, setLocation, user } = useContext(AuthContext)
   const [permissionData, setPermissionData] = useState([])
+
+  const locaUser = JSON.parse(localStorage.getItem('user'))
+
+  useEffect(() => {
+    
+    setLocation(location)
+      
+  }, [location])
+  
 
   useEffect(() => {
 
     const fetchPermissions = async () => {
-      setPermissionData(await getPermissionsByState(selectState))
+      setPermissionData(await getPermissionsByState(selectState, locaUser.idUser))
 
     }
 

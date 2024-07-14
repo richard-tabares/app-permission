@@ -6,9 +6,11 @@ import { useNavigate } from 'react-router-dom'
 
 export const NavBar = () => {
 
-    const { logout, user } = useContext(AuthContext)
+    const { logout } = useContext(AuthContext)
     const navigate = useNavigate()
 
+    const localUser = JSON.parse(localStorage.getItem('user'))
+    
     const [menuActive, setMenuActive] = useState(false)
 
     const onCloseMenu = () => {
@@ -38,7 +40,7 @@ export const NavBar = () => {
             <div className='flex items-center'>
 
                 <FaUser className='mr-3' />
-                <span>{user.name}</span>
+                <span>{localUser.name}</span>
 
             </div>
 

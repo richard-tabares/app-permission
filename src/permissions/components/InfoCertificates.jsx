@@ -1,14 +1,14 @@
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { Buttons } from "./Buttons"
 import { Message } from "./Message"
+import { AuthContext } from "../../login/context/AuthContext"
 
 
 export const InfoCertificates = ({certificate = []}) => {
 
     const [data] = certificate
     const [stateButton, setStateButton] = useState(data?.state)
-    const [message, setMessage] = useState()
-    const [messageState, setMessageState] = useState(false)
+    const { messageState } = useContext(AuthContext)
 
     useEffect(() => {
 
@@ -44,7 +44,7 @@ export const InfoCertificates = ({certificate = []}) => {
         <>
             {
 
-                messageState && <Message message={message} setMessageState={setMessageState} />
+                messageState && <Message />
 
             }
             <section className="grid gap-5">
@@ -87,7 +87,7 @@ export const InfoCertificates = ({certificate = []}) => {
 
             </section>
 
-            <Buttons stateButton={stateButton} id={data?.idCertificate || data?.idPermission} setMessage={setMessage} setMessageState={setMessageState} />
+            <Buttons stateButton={stateButton} id={data?.idCertificate || data?.idPermission} />
 
 
         </>

@@ -1,10 +1,12 @@
 import { Link } from "react-router-dom"
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useUpdatePermissions } from "../hooks/useUpdatePermissions";
+import { AuthContext } from "../../login/context/AuthContext";
 
-export const PermissionCard = ({ data = [], location }) => {
+export const PermissionCard = ({ data = [] }) => {
 
     const [newData, setNewData] = useState([])
+    const {location} = useContext(AuthContext)
 
     useEffect(() => {
 

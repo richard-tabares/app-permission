@@ -13,11 +13,9 @@ export const Login = () => {
         password: '',
     }
 
-    const [message, setMessage] = useState()
-    const [messageState, setMessageState] = useState(false)
     const { onInputChange, user, password } = useForm(initialForm)
 
-    const { login } = useContext(AuthContext)
+    const { login, setMessage, setMessageState, messageState } = useContext(AuthContext)
     const navigate = useNavigate()
 
     const onLogin = async (e) => {
@@ -39,7 +37,7 @@ export const Login = () => {
             } else {
 
                 setMessage('Usuario y contraseña no coinciden, intenta de nuevo')
-                setMessageState(true)
+                setMessageState(!messageState)
 
             }
 
@@ -47,7 +45,7 @@ export const Login = () => {
         } else {
 
             setMessage('Los campos no pueden ir vacios')
-            setMessageState(true)
+            setMessageState(!messageState)
 
         }
 
@@ -59,7 +57,7 @@ export const Login = () => {
 
             {
 
-                messageState && <Message message={message} setMessageState={setMessageState} />
+                messageState && <Message />
 
             }
 

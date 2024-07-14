@@ -1,16 +1,19 @@
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { FaCircleCheck, FaCircleExclamation, FaCircleMinus, FaCircleXmark } from 'react-icons/fa6'
 import { postPermissionState } from "../../login/helpers/postPermissionState"
 import { postCertificateState } from "../../login/helpers/postCertificateState"
 import { useLocation, useNavigate } from 'react-router-dom'
+import { AuthContext } from "../../login/context/AuthContext"
 
-export const Buttons = ({ stateButton, id, setMessage, setMessageState }) => {
+export const Buttons = ({ stateButton, id }) => {
 
     const path = useLocation()
     const [location] = path.pathname.split('/').filter(part => part)
 
 
     const navigate = useNavigate()
+
+    const { setMessage, setMessageState, message, messageState} = useContext(AuthContext)
 
     const initialStates = [
         {
@@ -51,12 +54,12 @@ export const Buttons = ({ stateButton, id, setMessage, setMessageState }) => {
             ? setData(await postPermissionState(id, buttonState))
             : setData(await postCertificateState(id, buttonState))
         
-        console.log(data.message) 
+        // console.log(data?.message)
 
         if (data.message !== '204' && data.message !== '400') {
 
             setMessage('Actualizado exitosamente')
-            setMessageState(true)
+            setMessageState(!messageState)
             // navigate(location, {
             //     replace: true
             // })
@@ -64,7 +67,7 @@ export const Buttons = ({ stateButton, id, setMessage, setMessageState }) => {
         } else {
 
             setMessage('El estado de la solicitud no hasido cambiado')
-            setMessageState(true)
+            setMessageState(!messageState)
 
         }
 

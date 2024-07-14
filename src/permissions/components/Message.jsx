@@ -1,13 +1,21 @@
-import { useEffect } from "react";
-import { FaCircleInfo, FaX } from "react-icons/fa6";
+import { useContext, useEffect } from "react";
+import { FaCircleInfo } from "react-icons/fa6";
+import { AuthContext } from "../../login/context/AuthContext";
+import { useNavigate } from 'react-router-dom'
 
-export const Message = ({ message, setMessageState }) => {
+export const Message = () => {
+
+    const { setMessageState, message, messageState, location } = useContext(AuthContext)
+    const navigate = useNavigate()
 
     useEffect(() => {
 
         const handleEsc = (e) => {
 
-            (e.key === 'Escape' || e.key === 'Esc') && setMessageState(false)
+            (e.key === 'Escape' || e.key === 'Esc') && setMessageState(!messageState)
+            navigate(`/${location}`, {
+                replace: true
+            })
 
         }
 
@@ -20,15 +28,15 @@ export const Message = ({ message, setMessageState }) => {
         };
     }, []);
     
-    const closeModal = (e) => {
+    const closeModal = () => {
 
-
-        // e.key === 'Escape' && setMessageState(false)
-
-        setMessageState(false)
+        setMessageState(!messageState)
+        navigate(`/${location}`, {
+            replace: true
+        })
 
     }
-    document.addEventListener('keydown', closeModal)
+
     return (
 
         <section className="fixed grid place-items-center top-0 left-0 bg-gray-dark w-screen h-screen bg-opacity-90 backdrop-blur-sm z-20 p-8" onClick={closeModal}>

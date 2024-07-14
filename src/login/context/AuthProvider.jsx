@@ -13,7 +13,10 @@ export const AuthProvider = ({ children }) => {
         return {
             logged: !!user,
             user: user,
-            selectState: ''
+            selectState: '',
+            message: '',
+            messageState: false,
+            location: ''
         }
     }
 
@@ -65,13 +68,44 @@ export const AuthProvider = ({ children }) => {
 
     }
 
+    const setMessage = (message) => {
+
+        const action = {
+            types: types.message,
+            payload: message
+        }
+        dispatch(action)
+        
+    }
+    const setMessageState = (messageState) => {
+
+        const action = {
+            types: types.messageState,
+            payload: messageState
+        }
+        dispatch(action)
+        
+    }
+
+    const setLocation = (location) => {
+        
+        const action = {
+            types: types.location,
+            payload: location
+        }
+        dispatch(action)
+    }
+
     return (
 
         <AuthContext.Provider value={{
             ...state,
             login,
             logout,
-            filter
+            filter,
+            setMessage,
+            setMessageState,
+            setLocation
 
         }}>
             {children}
