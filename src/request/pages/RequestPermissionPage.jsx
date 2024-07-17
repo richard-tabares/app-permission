@@ -1,4 +1,4 @@
-import { FaUser } from "react-icons/fa6"
+import { FaUser, FaIdBadge, FaUserTie, FaCircleInfo } from "react-icons/fa6"
 import { useForm } from "../../hooks/useForm"
 import { getUser } from '../../login/helpers/getUser'
 import { useContext, useEffect, useState } from "react"
@@ -105,7 +105,7 @@ export const RequestPermissionPage = () => {
 
   }
   const cancelPermission = (e) => {
-    
+
     e.preventDefault()
     navigate('/peticiones', {
       replace: true
@@ -122,7 +122,7 @@ export const RequestPermissionPage = () => {
 
   return (
 
-    <section className="p-10">
+    <section className="p-10 w-screen h-screen grid m-auto place-content-center">
 
       {
 
@@ -142,7 +142,7 @@ export const RequestPermissionPage = () => {
         <div className='flex items-center mb-6'>
 
           <div className='absolute flex pl-4 text-gray-dark z-10'>
-            <FaUser />
+            <FaIdBadge />
           </div>
           <input
             type="text"
@@ -174,7 +174,7 @@ export const RequestPermissionPage = () => {
         <div className='flex items-center mb-6'>
 
           <div className='absolute flex pl-4 text-gray-dark z-10'>
-            <FaUser />
+            <FaUserTie />
           </div>
 
           <select
@@ -192,6 +192,10 @@ export const RequestPermissionPage = () => {
 
         </div>
         <div className='flex items-center mb-6'>
+
+          <div className='absolute flex pl-4 text-gray-dark z-10'>
+            <FaCircleInfo />
+          </div>
 
           <textarea
             name="description"
@@ -218,6 +222,7 @@ export const RequestPermissionPage = () => {
 
       </form>
 
-    </section>
+      </section>
+
   )
 }
