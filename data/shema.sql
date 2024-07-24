@@ -20,6 +20,7 @@ create table permissions(
     idBoss bigint not null,
     date date not null,
     description text not null,
+    pdfPath text null,
     state varchar(255) not null
 );
 
