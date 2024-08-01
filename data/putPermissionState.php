@@ -14,7 +14,7 @@ try {
 
     }
 
-    if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+    if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
 
         // $json = file_get_contents('php://input');
         // $data = json_decode($json, true);

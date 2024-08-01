@@ -1,11 +1,11 @@
 import { BiBody } from "react-icons/bi"
 
-export const putRequestPermission = async (dataPermissoin) => {
+export const postRequestPermission = async (dataPermissoin) => {
   
-    const api = `http://localhost/data/putRequestPermission.php`
+    const api = `http://localhost/data/postRequestPermission.php`
 
     const getData = await fetch(api, {
-        method: 'PUT',
+        method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },

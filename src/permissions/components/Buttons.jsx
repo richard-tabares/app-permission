@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react"
 import { FaCircleCheck, FaCircleExclamation, FaCircleMinus, FaCircleXmark } from 'react-icons/fa6'
-import { postPermissionState } from "../../login/helpers/postPermissionState"
-import { postCertificateState } from "../../login/helpers/postCertificateState"
+import { putPermissionState } from "../../login/helpers/putPermissionState"
+import { putCertificateState } from "../../login/helpers/putCertificateState"
 import { useLocation } from 'react-router-dom'
 import { AuthContext } from "../../login/context/AuthContext"
 import { Pdf } from './CreatePdf'
@@ -54,8 +54,8 @@ export const Buttons = ({ stateButton, id }) => {
     const onStateButton = async (buttonState) => {
 
         (location === 'permisos')
-            ? setData(await postPermissionState(id, buttonState))
-            : setData(await postCertificateState(id, buttonState))
+            ? setData(await putPermissionState(id, buttonState))
+            : setData(await putCertificateState(id, buttonState))
 
         if (data.message !== '204' && data.message !== '400') {
 

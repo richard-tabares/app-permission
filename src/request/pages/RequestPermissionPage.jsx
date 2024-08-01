@@ -3,7 +3,7 @@ import { useForm } from "../../hooks/useForm"
 import { getUser } from '../../login/helpers/getUser'
 import { useContext, useEffect, useState } from "react"
 import { getAllBosses } from "../../login/helpers/getAllBosses"
-import { putRequestPermission } from "../../login/helpers/putRequestPermission"
+import { postRequestPermission } from "../../login/helpers/postRequestPermission"
 import { AuthContext } from "../../login/context/AuthContext"
 import { Message } from "../../permissions/components/Message"
 import { useLocation, useNavigate } from 'react-router-dom'
@@ -88,7 +88,7 @@ export const RequestPermissionPage = () => {
 
     if (idUser != '' && idBoss != '' && description != '') {
 
-      const response = await putRequestPermission(state)
+      const response = await postRequestPermission(state)
 
       if (response.message != '204' && response.message != '400') {
 
