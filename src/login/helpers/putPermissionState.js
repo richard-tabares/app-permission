@@ -8,6 +8,7 @@ export const putPermissionState = async (idPermission, buttonState) => {
     }
     )
     const json = await getData.json()
+    console.log(json)
 
     return json
 }
